@@ -16,7 +16,7 @@ to directly communicate with Docker server , we communicate with Docker Client w
 
 
 ### docker image is a blue print for docker container
-when we take a image & turn it into a container using docker run command what happens ?
+when we take a image & turn it into a container using docker run command what happens ?\
 ans: the kernel is going to isolate a little section of the hard drive & make it available only for this container
 
 namespacing in operating system and docker containers works in same manner
