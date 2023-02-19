@@ -233,18 +233,18 @@ services:
 
 
 ## internal referencing in Dockerfile 
+```yaml
+    FROM node:alpine as builder(it is like alias)
+    WORKDIR '/app'
+    COPY package.json
+    RUN npm install
+    COPY . .
+    RUN npm run build
 
-FROM node:alpine as builder(it is like alias)
-WORKDIR '/app'
-COPY package.json
-RUN npm install
-COPY . .
-RUN npm run build
-
-FROM nginx
-COPY --from=builder /app/build /usr/share/nginx/html
-(copy everything from /app/build folder of builder(image) to /usr/share/nginx/html folder of nginx image)
-
+    FROM nginx
+    COPY --from=builder /app/build /usr/share/nginx/html
+    (copy everything from /app/build folder of builder(image) to /usr/share/nginx/html folder of nginx image)
+```
 
 
 ## best way to declare inside docker-compose file
