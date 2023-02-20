@@ -55,10 +55,10 @@ when fabric-ca-server starts it will look for fabric-ca-server-config.yaml file\
 this file conatins every info and where all the configuration certificates and private that\
 belongs to this ca will we stored you can provide path to this file in the following way
 
-1st way -> -h flag while running start command or init command (if not provided uses below)\
-2nd way -> export FABRIC_CA_SERVER_HOME = <path> (if not provided uses below)\
-3rd way -> export FABRIC_CA_HOME = <path> (if not provided uses below)\
-4th way -> export CA_CFG_PATH = <path> (if not provided uses below)\
+1st way -> -h flag while running start command or init command  (if not provided uses below)\
+2nd way -> export FABRIC_CA_SERVER_HOME = <path>  (if not provided uses below)\
+3rd way -> export FABRIC_CA_HOME = <path>  (if not provided uses below)\
+4th way -> export CA_CFG_PATH = <path>  (if not provided uses below)\
 5th way -> current folder
 
 you can provide every configuration to fabric-ca-server using env variables as well
@@ -135,31 +135,30 @@ we can also specify the path using env variable FABRIC_CA_CLIENT_HOME=<path to s
  ┣ 📜fabric-ca-server.db\
  ┗ 📜tls-cert.pem
 
-msp folder contains\
-cacerts (empty)\
-keystore (private key of the ca-server itself)\
-signcerts (empty)\
-user (empty)
-
-fabric-ca-server-config.yaml (contains configurations used to create this ca-server)\
-fabric-ca-server.db (database file where all the info of users, peers and orderers who are members of this ca are stored)\
-ca-cert.pem (this the certificate of the ca-server also called as root ca cert)\
-tls-cert.pem (this the tls certificate of the ca-server also called as root tls cert)
+***msp*** folder contains\
+***cacerts***  (empty)\
+***keystore***  (private key of the ca-server itself)\
+***signcerts***  (empty)\
+***user***  (empty)
+***fabric-ca-server-config.yaml***  (contains configurations used to create this ca-server)\
+***fabric-ca-server.db***  (database file where all the info of users, peers and orderers who are members of this ca are stored)\
+***ca-cert.pem***  (this the certificate of the ca-server also called as root ca cert)\
+***tls-cert.pem***  (this the tls certificate of the ca-server also called as root tls cert)
 
 __the certificate tls-cert.pem this file will be used every time when we try to communicate with the ca-server in --tls.certfiles flag__ 
 
-example1(enrolling ca admin):\
+example1 (enrolling ca admin):\
     ```sh
     export FABRIC_CA_CLIENT_HOME=${PWD}/organizations/peerOrganizations/org1.example.com/
     fabric-ca-client enroll -u https://admin:adminpw@localhost:7054 --caname ca-org1 --tls.certfiles ${PWD}/organizations/fabric-ca/org1/tls-cert.pem
     ```
 
-example2(registering peer):\
+example2 (registering peer):\
     ```sh
     fabric-ca-client register --caname ca-org1 --id.name peer0 --id.secret peer0pw --id.type peer --tls.certfiles ${PWD}/organizations/fabric-ca/org1/tls-cert.pem
     ```
 
-example3(enrolling for tls certs):\
+example3 (enrolling for tls certs):\
     ```sh
     fabric-ca-client enroll -u https://peer0:peer0pw@localhost:7054 --caname ca-org1 -M ${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp --csr.hosts peer0.org1.example.com --tls.certfiles ${PWD}/organizations/fabric-ca/org1/tls-cert.pem
     ```
@@ -169,7 +168,7 @@ while enrolling for tls-cert we will pass extra flag called --csr.hosts\
 --csr.hosts peer0.org1.example.com
 
 
-### file structure after enrolling org(admin, users, peers, orderers)
+### file structure after enrolling org (admin, users, peers, orderers)
 
 the msp you find under the org1.example.com belongs the admin of the ca, other folders are inside org1.example.com are manually created\
 📦org1.example.com\
@@ -250,21 +249,21 @@ the msp you find under the org1.example.com belongs the admin of the ca, other f
 
  under org1.example.com we have this folder
 
- ca(we copied same ca root certificate and changed the name)\
- msp(contains msp config about ca admin)\
- peers(contains msp about all the peers of this org)\
- tlsca(we copied same ca root certificate and changed the name)\
- users(contains msp of all the users of this org)
+ ***ca*** (we copied same ca root certificate and changed the name)\
+ ***msp*** (contains msp config about ca admin)\
+ ***peers*** (contains msp about all the peers of this org)\
+ ***tlsca*** (we copied same ca root certificate and changed the name)\
+ ***users*** (contains msp of all the users of this org)
 
 
-### msp folder (this folder structure is same for all admins and users who are present in users folder)
+### msp folder  (this folder structure is same for all admins and users who are present in users folder)
 
-cacerts(we copied same ca root certificate and changed the name)\
-keystore(contains private key that belongs to this admin)\
-signcerts(contains public certificate that belongs to this admin)\
-tlscacerts(we copied same ca root certificate and changed the name)\
-user(empty)\
-config.yaml (we need to create it manually, this file is same for all the components in this org)
+***cacerts*** (we copied same ca root certificate and changed the name)\
+***keystore*** (contains private key that belongs to this admin)\
+***signcerts*** (contains public certificate that belongs to this admin)\
+***tlscacerts*** (we copied same ca root certificate and changed the name)\
+***user*** (empty)\
+***config.yaml***  (we need to create it manually, this file is same for all the components in this org)
 
 
 ## peers folder
@@ -272,26 +271,26 @@ peers folder contains separte folder for each peer inside of
 
 ### peer0.org1.example.com
 under this folder we have \
-msp folder\
-tls folder
+***msp*** folder\
+***tls*** folder
 
 ### msp folder of peer 
 
-cacerts(we copied same ca root certificate and changed the name)\
-keystore(contains private key that belongs to this peer)\
-signcerts(contains public certificate that belongs to this peer)\
-user(empty)\
-config.yaml
+***cacerts*** (we copied same ca root certificate and changed the name)\
+***keystore*** (contains private key that belongs to this peer)\
+***signcerts*** (contains public certificate that belongs to this peer)\
+***user (empty)***\
+***config.yaml***
 
 
 ### tls folder of peer
 
-cacerts(empty)\
-keystore(contains tls private key that belongs to this admin)\
-signcerts(contains public tls-certificate that belongs to this peer)\
-tlscacerts(we copied same ca root certificate and changed the name)\
-user(empty)\
-ca.crt(we copied same ca root certificate and changed the name, we just named it ca.crt because of simplicity)\
-server.crt(public tls-certificate we coppied it from above signcerts folder and renamed it server.crt for simplicity)\
-server.key(tls private key we coppied it from above keystore folder and renamed it server.key for simplicity)
+***cacerts*** (empty)\
+***keystore*** (contains tls private key that belongs to this admin)\
+***signcerts*** (contains public tls-certificate that belongs to this peer)\
+***tlscacerts*** (we copied same ca root certificate and changed the name)\
+***user*** (empty)\
+***ca.crt*** (we copied same ca root certificate and changed the name, we just named it ca.crt because of simplicity)\
+***server.crt*** (public tls-certificate we coppied it from above signcerts folder and renamed it server.crt for simplicity)\
+***server.key*** (tls private key we coppied it from above keystore folder and renamed it server.key for simplicity)
 
