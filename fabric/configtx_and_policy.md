@@ -222,9 +222,9 @@ Profiles:
    > configtxgen -outputAnchorPeersUpdate org1anchors.tx -profile TwoOrgsChannel -channelId acmechannel -asOrg Org1
    - above command generates the file org1anchors.tx file which can only be used by org1 in the acmechannel to update the anchor peers 
 ```
-- the configtxgen tool picks up the anchor peer information from the configtx.yaml file using the -profile and -asOrg
-   -profile = AcmeChannel(present in the profile section)
-   -asOrg = Org1(present in the organizations section)
+- the configtxgen tool picks up the anchor peer information from the configtx.yaml file using the -profile and -asOrg___
+   -profile = AcmeChannel(present in the profile section)___
+   -asOrg = Org1(present in the organizations section)___
 
 
 
@@ -258,13 +258,13 @@ genesis block controls
 
 
 
-***what changes***
-network configaration and channel configuartion
+***what changes***___
+- network configaration and channel configuartion___
 
-***who changes ***
-admin , member
+***who changes***___
+- admin and member___
 
-***how changes happen ***
+***how changes happen ***___
 - in case of ANY policy , single org need to sign the transaction(which contains changes)
 - in case of Majority policy , multi orgs need to sign the transaction
 
@@ -283,99 +283,97 @@ admin , member
 
 - rules are heart and soul of the policy
 - rules are expressed as boolean expressions in terms of the principles
-- principle refers to the singers role in the member organization, organziation issue identities and these identities are 
-   associated with rules or principles
-- there are four standard principles that can be assigned to the identity
+- principle refers to the singers role in the member organization, organziation issue identities and these identities are___
+   associated with rules or principles____
+- there are four standard principles that can be assigned to the identity___
    -> admin
    -> memeber
    -> client 
    -> peer
--> the rule reference is made to the principle by using notation MSPID
-ex:
+-> the rule reference is made to the principle by using notation MSPID___
+ex:___
    org1MSP.admin -> this references to admin principle in org1 organization
-
 
 ### relationship b/w identities and principles using example
 
-we have acme organization which has acme CA to issue certificates , it has issued to certificates one for admin(molly) and one for user(jhon)
+we have acme organization which has acme CA to issue certificates , it has issued to certificates one for admin(molly) and one for user(jhon)___
 
-molly ->  type: admin
-jhon -> type: user
+molly ->  type: admin___
+jhon -> type: user___
 
--> lets say molly is assigned with a admin certificate, in molly's certificate it will indicate the principle as a acmeMSP.admin
--> lets say jhon is assigned with a user certificate, in jhon's certificate it will indicate the principle as a acmeMSP.member
+-> lets say molly is assigned with a admin certificate, in molly's certificate it will indicate the principle as a acmeMSP.admin___
+-> lets say jhon is assigned with a user certificate, in jhon's certificate it will indicate the principle as a acmeMSP.member___
 
 
 # policy hieracrchies
 
 - policies ar defined in appropriate section of configtx.yaml file
 
-configtx.yaml
+***configtx.yaml***
 
-   Organizations: organization level policies
-   Orderer: orderer level policies
+   Organizations: organization level policies___
+   Orderer: orderer level policies___
    Channel: channel level policies
 
 
-- Readers policy can govern which principle can read
-- Writers Policy can govern which principle can write
+- Readers policy can govern which principle can read___
+- Writers Policy can govern which principle can write___
 - Admin Policy can govern which principle can carry out admin actions
 
+***examples of actions***
 
-examples of actions
-
-- Readers -> reades the channel -> example -> query a chaincode
-- Writers -> writes to channel -> example -> invoke a chaincode
+- Readers -> reades the channel -> example -> query a chaincode___
+- Writers -> writes to channel -> example -> invoke a chaincode___
 - Admins -> admin action on org -> example -> add peer, update anchor peer tx
 
 
 
 
-policy definition has two parts
+***policy definition has two parts***
 
-   Type: Signature Policy OR implicity Meta
-   Rule: Boolean expressions
+   Type: Signature Policy OR implicity Meta___
+   Rule: Boolean expressions___
 
 
-Signature Policy 
--> rules are boolean expressions
--> applicable at all level
+***Signature Policy***
+-> rules are boolean expressions___
+-> applicable at all level___
 -> functions: OR(...), AND(...), OUTOF(...)
 
-Implicit Meta Policy
--> rules refer to other policies
--> aggreated from referred policies
--> applicable for channel configuration & application configuration
--> not applicable for org level policies
--> Keywords like ANY, ALL, MAJORITY
+***Implicit Meta Policy***
+-> rules refer to other policies___
+-> aggreated from referred policies___
+-> applicable for channel configuration & application configuration___
+-> not applicable for org level policies___
+-> Keywords like ANY, ALL, MAJORITY___
 
 
 #### if you convert any block file to json file you will see data like below
 
-this is just dummy data dont take it for real
-{
-   data: 
-   data: [
-      {
-         ......
-         channel_group: {
-            groups: {
-               mod_policy: "Admins" # 1
-               policies: ["Admins", "Readers", "Writers"] # 2
-               values: { # 3
-                  BlockDataHashingStructure
-                  HashingAlgorithm
-                  OrdererAddresss
-               }
-            }
-         }
-      }
-   ]
+this is just dummy data dont take it for real___
+{___
+   data:___ 
+   data: [___
+      {___
+         ......___
+         channel_group: {___
+            groups: {___
+               mod_policy: "Admins" # 1___
+               policies: ["Admins", "Readers", "Writers"] # 2___
+               values: { # 3___
+                  BlockDataHashingStructure___
+                  HashingAlgorithm___
+                  OrdererAddresss___
+               }___
+            }___
+         }___
+      }___
+   ]___
 }
 
 
--> 1. mod_policy -> who can modify the below policies
--> 2. policies 
+-> 1. mod_policy -> who can modify the below policies___
+-> 2. policies___ 
 -> 3. values -> what they can modify
 
 
@@ -383,9 +381,8 @@ this is just dummy data dont take it for real
 examples of signature policies
 
 
-OR('Org1MSP.member') -> any member of org1
-OR('Org1MSP.admin', 'Org2MSP.member') -> an admin of org1 or an member of org2
-
+OR('Org1MSP.member') -> any member of org1___
+OR('Org1MSP.admin', 'Org2MSP.member') -> an admin of org1 or an member of org2___
 AND('Org1MSP.admin', 'Org2MSP.admin')
 
 
@@ -420,13 +417,11 @@ Organizations:
                 Rule: "OR('Org1MSP.peer')"
 ```
 
-in the above yaml file we have Policies which are explained here
+in the above yaml file we have Policies which are explained here___
 
--> Readers -> "OR('Org1MSP.admin', 'Org1MSP.peer', 'Org1MSP.client')" can read(world state)
--> Writers -> "OR('Org1MSP.admin', 'Org1MSP.client')" can write(submit transanction)
-
--> Admins -> "OR('Org1MSP.admin')" can add peer or update anchor peer tx 
-
+-> Readers -> "OR('Org1MSP.admin', 'Org1MSP.peer', 'Org1MSP.client')" can read(world state)___
+-> Writers -> "OR('Org1MSP.admin', 'Org1MSP.client')" can write(submit transanction)___
+-> Admins -> "OR('Org1MSP.admin')" can add peer or update anchor peer tx___
 -> Endorsement -> "OR('Org1MSP.peer')" only peer can endorse the transaction
 
 
@@ -435,10 +430,10 @@ in the above yaml file we have Policies which are explained here
 ##### you can view organization policies in JSON file in the below location
 
 
-channel_group
-         groups
-            Application
-               groups
+channel_group___
+         groups___
+            Application___
+               groups___
                   acme(organization name)
 
 
