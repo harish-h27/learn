@@ -929,3 +929,66 @@ On-Chain Data Example:
   "proof": "0xabcdef123..."
 }
  ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 1. How many clouds are we giving access to?
+
+We are providing access to multiple cloud platforms. The exact number of clouds will depend on the supported platforms in our solution. Common cloud platforms include AWS, Azure, Google Cloud, and others.
+
+## 2. Once the cloud is selected and deployed, are we going to launch that Docker container or K8s container in the cloud?
+
+Yes, once the cloud platform is selected and the environment is deployed, we will launch the necessary Docker container or Kubernetes (K8s) container in the cloud environment. This ensures that our applications run in the selected cloud infrastructure.
+
+## 3. Are shell scripts required?
+
+Shell scripts can be required for automating the deployment and management of Docker or K8s containers in the cloud. These scripts can handle tasks such as:
+
+- Setting up the cloud environment.
+- Deploying containers.
+- Managing container lifecycle operations.
+- Automating routine maintenance and scaling tasks.
+
+## 4. What is solution whitelisting?
+
+Solution whitelisting involves explicitly allowing certain solutions or applications to run within a specified environment. This can be done for security and compliance reasons to ensure only trusted and verified solutions are executed. Whitelisting can help prevent unauthorized or malicious applications from running.
+
+## 5. Difference between worker node networks and worker nodes?
+
+### Worker Node Networks
+
+- **Definition**: The networks that connect worker nodes within a Kubernetes cluster or a distributed computing environment.
+- **Function**: These networks facilitate communication between worker nodes and other components such as the master node, API server, and external services.
+- **Components**: Can include network interfaces, subnets, routing rules, and security policies that manage data flow between nodes.
+
+### Worker Nodes
+
+- **Definition**: The individual computing instances (virtual machines or physical servers) that run containerized applications within a Kubernetes cluster or a distributed computing environment.
+- **Function**: Execute the workloads assigned to them, such as running Docker containers, managing local storage, and handling network traffic.
+- **Components**: Each worker node typically includes a container runtime (e.g., Docker), kubelet (an agent that runs on each node in the cluster), and kube-proxy (a network proxy that reflects Kubernetes networking services).
+
+### Summary of Differences
+
+- **Worker Node Networks** refer to the connectivity and communication infrastructure between worker nodes.
+- **Worker Nodes** are the actual compute instances that perform the tasks and run containerized applications.
+
+This should provide a clear understanding of the concepts and their differences.
